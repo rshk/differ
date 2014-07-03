@@ -82,4 +82,36 @@ def test_compare_simple_sequences_different_length():
 
 
 def test_compare_sequence_of_dicts():
-    pass
+    seq1 = [
+        {'a': 1, 'b': 1, 'c': 1},
+        {'a': 2, 'b': 2, 'c': 2},
+        {'a': 3, 'b': 3, 'c': 3},
+    ]
+    seq2 = [
+        {'a': 30, 'b': 30, 'c': 3},
+        {'a': 2, 'b': 20, 'c': 2},
+        {'a': 1, 'b': 1, 'c': 10},
+    ]
+    diff = compare_objects(seq1, seq2)
+
+    assert diff['total'] == 3
+    assert diff['distance'] == 1.0  # All were moved
+    assert diff['added'] == []
+    assert diff['removed'] == []
+    assert sorted(diff['changed']) == [0, 1, 2]
+    assert sorted(diff['changes'].keys()) == sorted(diff['changed'])
+
+    assert diff['changes'][0]['distance'] == 1 / 3
+    assert diff['changes'][0]['pos'] == 2
+    assert diff['changes'][1]['distance'] == 1 / 3
+    assert diff['changes'][1]['pos'] == 1
+    assert diff['changes'][2]['distance'] == 2 / 3
+    assert diff['changes'][2]['pos'] == 0
+
+    assert diff['equal'] == []
+    assert diff['total'] == 3
+
+
+def test_compare_equal_sequences():
+    diff = compare_objects([1, 2, 3], [1, 2, 3])
+    assert diff['distance'] == 0.0

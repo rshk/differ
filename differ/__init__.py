@@ -47,7 +47,7 @@ def _compare_dicts(left, right):
     total = len(all_keys)
     diff_count = len(differences) + len(left_only) + len(right_only)
     return {
-        'distance': diff_count / total,
+        'distance': (diff_count / total) if total != 0 else 0,
         'removed': left_only,
         'added': right_only,
         'changed': differences.keys(),
@@ -114,7 +114,7 @@ def _compare_sequences(left, right):
     assert diff_count == len(left_only) + len(right_only) + len(differences)
 
     total = diff_count + len(equal)
-    distance = diff_count / total
+    distance = (diff_count / total) if total != 0 else 0
 
     return {
         'distance': distance,

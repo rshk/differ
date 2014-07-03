@@ -7,6 +7,13 @@ Differ
 .. image:: https://coveralls.io/repos/rshk/differ/badge.png
     :target: https://coveralls.io/r/rshk/differ
 
+.. image:: https://pypip.in/v/differ/badge.png
+    :target: https://crate.io/packages/differ/
+    :alt: Latest PyPI version
+
+.. image:: https://pypip.in/d/differ/badge.png
+    :target: https://crate.io/packages/differ/
+    :alt: Number of PyPI downloads
 
 Python library to calculate differences between objects.
 

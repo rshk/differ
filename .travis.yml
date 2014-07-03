@@ -21,7 +21,7 @@ script:
   - py.test -vvv --pep8 --cov=differ --cov-report=term-missing tests
 
 after_success:
-  - coveralls
+  - COVERALLS_REPO_TOKEN=x0pdWQ4TN84sXeuA5WJjUHTQ5N59Ggx0W coveralls
 
 matrix:
   allow_failures:

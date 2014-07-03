@@ -1,6 +1,9 @@
 from setuptools import setup, find_packages
 
-version = '0.1a'
+version = '0.1.1a'
+
+with open('README.rst') as fp:
+    longdesc = fp.read()
 
 
 setup(
@@ -12,7 +15,7 @@ setup(
     author='Samuele Santi',
     author_email='redshadow@hackzine.org',
     description='',
-    long_description='',
+    long_description=longdesc,
     install_requires=[],
     # tests_require=tests_require,
     # test_suite='tests',
@@ -30,6 +33,6 @@ setup(
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
     ],
-    package_data={'': ['README.md', 'LICENSE']},
+    package_data={'': ['README.rst']},
     include_package_data=True,
     zip_safe=False)

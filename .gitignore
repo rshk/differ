@@ -12,3 +12,4 @@
 __pycache__
 old-stuff
 /local_settings.py
+.run-coveralls.sh

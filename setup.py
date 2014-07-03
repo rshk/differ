@@ -1,11 +1,14 @@
+import os
 from setuptools import setup, find_packages
 
-version = '0.1.2'
+version = '0.1.3'
 
-with open('README.rst') as fp:
+here = os.path.dirname(__file__)
+
+with open(os.path.join(here, 'README.rst')) as fp:
     longdesc = fp.read()
 
-with open('CHANGELOG.rst') as fp:
+with open(os.path.join(here, 'CHANGELOG.rst')) as fp:
     longdesc += fp.read()
 
 

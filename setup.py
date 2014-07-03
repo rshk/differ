@@ -1,9 +1,12 @@
 from setuptools import setup, find_packages
 
-version = '0.1.1a'
+version = '0.1.1'
 
 with open('README.rst') as fp:
     longdesc = fp.read()
+
+with open('CHANGELOG.rst') as fp:
+    longdesc += fp.read()
 
 
 setup(

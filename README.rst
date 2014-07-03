@@ -1,6 +1,13 @@
 Differ
 ######
 
+.. image:: https://travis-ci.org/rshk/differ.svg?branch=master
+    :target: https://travis-ci.org/rshk/differ
+
+.. image:: https://coveralls.io/repos/rshk/differ/badge.png
+    :target: https://coveralls.io/r/rshk/differ
+
+
 Python library to calculate differences between objects.
 
 Right now, it supports calculating differences between objects built

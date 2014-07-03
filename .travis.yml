@@ -15,9 +15,13 @@ python:
 install:
   - python setup.py install
   - pip install pytest pytest-cov pytest-pep8
+  - pip install python-coveralls
 
 script:
-  - py.test -vvv tests --cov=differ --cov-report=term-missing
+  - py.test -vvv --pep8 --cov=differ --cov-report=term-missing tests
+
+after_success:
+  - coveralls
 
 matrix:
   allow_failures:

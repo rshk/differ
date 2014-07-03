@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '0.1.3'
+version = '0.1.4'
 
 here = os.path.dirname(__file__)
 
@@ -39,6 +39,6 @@ setup(
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
     ],
-    package_data={'': ['README.rst']},
+    package_data={'': ['README.rst', 'CHANGELOG.rst']},
     include_package_data=True,
     zip_safe=False)

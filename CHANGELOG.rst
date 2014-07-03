@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.1.4
+------
+
+- Added ``CHANGELOG.rst`` to distributed files (that was the problem!)
+
 v0.1.3
 ------
 

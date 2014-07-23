@@ -21,6 +21,66 @@ def compare_objects(left, right):
     return {'distance': 1.0, 'left': left, 'right': right}
 
 
+def format_diff(diff):
+    output = []
+
+    def _format_diff(diff, indent=0):
+        if diff['distance'] == 0:
+            return
+        _type = diff.get('type')
+        ind = u"    " * indent
+
+        if _type == 'dict':
+            output.append(ind + u"Distance: {0}".format(diff['distance']))
+            output.append(ind + u"Equal {0}".format(len(diff['equal'])))
+            output.append(ind + u"Added")
+            for key, val in diff['added'].iteritems():
+                output.append(ind + u"    {0!r}: {1!r}".format(key, val))
+            output.append(ind + u"Removed")
+            for key, val in diff['removed'].iteritems():
+                output.append(ind + u"    {0!r}: {1!r}".format(key, val))
+            output.append(ind + u"Changes")
+            for key, val in diff['changes'].iteritems():
+                output.append(ind + u"    {0!r}:".format(key))
+                _format_diff(val, indent + 2)
+            return
+
+        if _type == 'list':
+            output.append(ind + u"Distance: {0}".format(diff['distance']))
+            output.append(ind + u"Equal: {0}".format(len(diff['equal'])))
+
+            if len(diff['added']):
+                output.append(ind + u"Added")
+                for key in diff['added']:
+                    output.append(ind + u"    {0!r}: {1!r}".format(key, val))
+
+            output.append(ind + u"Removed")
+            for key in diff['removed']:
+                output.append(ind + u"    {0!r}: {1!r}".format(key, val))
+
+            output.append(ind + u"Reordered")
+            for key, item in diff['changes'].iteritems():
+                if item['distance'] != 0:
+                    continue
+                output.append(ind + u"    {0} -> {1}".format(key, item['pos']))
+
+            output.append(ind + u"Changes")
+            for key, item in diff['changes'].iteritems():
+                if item['distance'] == 0:
+                    continue
+                output.append(ind + u"    {0} -> {1}".format(key, item['pos']))
+                _format_diff(item['diff'], indent + 2)
+            return
+
+        if diff['distance'] > 0:
+            output.append(ind + u"Left: {0!r}".format(diff['left']))
+            output.append(ind + u"Right: {0!r}".format(diff['right']))
+            return
+
+    _format_diff(diff)
+    return u"\n".join(output)
+
+
 def _are_both(left, right, types):
     return isinstance(left, types) and isinstance(right, types)
 
@@ -47,9 +107,10 @@ def _compare_dicts(left, right):
     total = len(all_keys)
     diff_count = len(differences) + len(left_only) + len(right_only)
     return {
+        'type': 'dict',
         'distance': (diff_count / total) if total != 0 else 0,
-        'removed': left_only,
         'added': right_only,
+        'removed': left_only,
         'changed': differences.keys(),
         'equal': equal,
         'changes': differences,
@@ -102,6 +163,7 @@ def _compare_sequences(left, right):
         elif dist < 1.0:
             # Something changed, but the item was the same
             differences[lid] = {
+                'prev_pos': lid,
                 'pos': rid,
                 'distance': dist,
                 'diff': diff}
@@ -117,6 +179,7 @@ def _compare_sequences(left, right):
     distance = (diff_count / total) if total != 0 else 0
 
     return {
+        'type': 'list',
         'distance': distance,
         'added': right_only,
         'removed': left_only,

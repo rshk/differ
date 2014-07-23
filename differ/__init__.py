@@ -26,17 +26,17 @@ def _are_both(left, right, types):
 
 
 def _compare_dicts(left, right):
-    left_only = []
-    right_only = []
+    left_only = {}
+    right_only = {}
     differences = {}
     equal = []
 
     all_keys = set(left.keys()).union(set(right.keys()))
     for key in all_keys:
         if key not in left:
-            right_only.append(key)
+            right_only[key] = right[key]
         elif key not in right:
-            left_only.append(key)
+            left_only[key] = left[key]
         else:
             diff = compare_objects(left[key], right[key])
             if diff['distance'] == 0:

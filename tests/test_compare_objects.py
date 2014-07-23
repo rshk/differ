@@ -31,8 +31,8 @@ def test_compare_simple_dicts():
 
     diff = compare_objects(dict1, dict2)
     assert diff['distance'] == 3/4
-    assert diff['added'] == ['ddd']
-    assert diff['removed'] == ['aaa']
+    assert diff['added'] == {'ddd': 'D'}
+    assert diff['removed'] == {'aaa': 'A'}
     assert diff['changed'] == ['ccc']
     assert diff['equal'] == ['bbb']
     assert diff['changes'] == {
